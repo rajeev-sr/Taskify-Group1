@@ -4,4 +4,5 @@
 4. setup tailwind css 
 5. start making components
 
+
 ### Note : for now use local storage if needed
