@@ -1,13 +1,8 @@
-import { useState } from 'react'
-import './App.css'
+import React from 'react';
+import AddNewNote from './components/addNewNote';
 
 function App() {
-
-  return (
-    <>
-      
-    </>
-  )
+  return <AddNewNote />;
 }
 
-export default App
+export default App;
