@@ -1,0 +1,126 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f3f4f6;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  color: #3b82f6;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+}
+
+.nav-links a.active {
+  color: #3b82f6;
+}
+
+.logout-btn {
+  background: #ddd;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #111;
+}
+
+.profile-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.username, .email {
+  color: #555;
+}
+
+.badge {
+  font-size: 0.8rem;
+  background-color: #e0f2ff;
+  color: #007acc;
+  padding: 3px 8px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.edit-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.info-section, .password-section {
+  margin-top: 2rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+label {
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.password-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.update-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
