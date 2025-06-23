@@ -1,0 +1,148 @@
+body {
+  background-color: #f7f8fa;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+}
+
+.logo {
+  font-weight: 700;
+  color: #3b82f6;
+  font-size: 24px;
+}
+
+nav a {
+  margin-right: 20px;
+  text-decoration: none;
+  color: #333;
+}
+
+nav a.active {
+  color: #3b82f6;
+}
+
+.logout {
+  padding: 6px 14px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.container {
+  padding: 40px;
+}
+
+.container h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.controls .btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.new-task {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+}
+
+.columns {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.column {
+  background-color: white;
+  border-radius: 10px;
+  padding: 16px;
+  flex: 1;
+  min-width: 300px;
+  border-top: 4px solid transparent;
+}
+
+.todo {
+  border-top-color: #3b82f6;
+}
+
+.progress {
+  border-top-color: #fbbf24;
+}
+
+.done {
+  border-top-color: #22c55e;
+}
+
+.column h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.task {
+  background-color: #f9fafb;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.task h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.task p {
+  font-size: 14px;
+  color: #666;
+}
+
+.priority {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  margin-left: 10px;
+  font-weight: 600;
+}
+
+.p1 {
+  background-color: #fecaca;
+  color: #b91c1c;
+}
+
+.p2 {
+  background-color: #fef08a;
+  color: #92400e;
+}
+
+.p3 {
+  background-color: #bbf7d0;
+  color: #065f46;
+}
