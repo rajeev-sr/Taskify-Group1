@@ -2,12 +2,7 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-
-  return (
-    <>
-      
-    </>
-  )
+return <HomePage />;
 }
 
 export default App
