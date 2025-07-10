@@ -1,3 +1,10 @@
+
+import React from 'react';
+import AddNewNote from './components/addNewNote';
+
+function App() {
+  return <AddNewNote />;
+  
 import { useState } from 'react'
 import './App.css'
 import Signup from './components/signup'
@@ -12,4 +19,4 @@ return <HomePage />;
   )
 }
 
-export default App
+export default App;
