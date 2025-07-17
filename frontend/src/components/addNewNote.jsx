@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './addNewNote.css'
+import './homepage.css'
 
 const AddNewNote = () => {
   const [notes, setNotes] = useState([]);

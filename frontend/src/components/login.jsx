@@ -9,11 +9,18 @@ const exampleUsers = [
   { email: 'rahul@india.com', password: 'rahul789' },
 ];
 
-const Login = () => {
+
+const Login = ({ setIsLoggedIn, setIsSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
   const [error, setError] = useState('');
+
+
+  const handleSignup = () => {
+    setIsSignUp(true)
+  }
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,8 +31,9 @@ const Login = () => {
     );
     if (user) {
       // Store a fake JWT for testing
-      localStorage.setItem('token', 'fake-jwt-token-for-' + user.email);
-      window.location.href = '/';
+      // localStorage.setItem('token', 'fake-jwt-token-for-' + user.email);
+      // window.location.href = '/';
+      setIsLoggedIn(true)
     } else {
       setError('Invalid credentials');
     }
@@ -37,7 +45,7 @@ const Login = () => {
         <h1 className="login-title">Taskify</h1>
         <h2 className="login-subtitle">Sign in to your account</h2>
         <div className="login-register">
-          Or <Link to="/signup">register for a new account</Link>
+          Or <a href='#' onClick={handleSignup}>register for a new account</a>
         </div>
         <form className="login-form" onSubmit={handleSubmit}>
           <input

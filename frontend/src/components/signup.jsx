@@ -3,11 +3,16 @@ import "./Signup.css";
 
 let registeredUsers = [];
 
-const Signup = () => {
+const Signup = ({ setIsSignUp }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+
+  const handleLogin = () => {
+    setIsSignUp(false)
+  }
 
   const handleSignup = () => {
     if (password !== confirmPassword) {
@@ -39,7 +44,7 @@ const Signup = () => {
       <h1 className="title">Taskify</h1>
       <h2>Create a new account</h2>
       <p>
-        Or <a href="#">sign in to your existing account</a>
+        Or <a href="#" onClick={handleLogin}>sign in to your existing account</a>
       </p>
 
       <input
