@@ -9,7 +9,7 @@ import Login from './components/login'
 
 function App() {
   const [isSignUp, setIsSignUp] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(true)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   return (
     <>
