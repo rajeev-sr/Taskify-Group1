@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import './Login.css';
 
 // Example users for cross-checking (Indian names)
-const exampleUsers = [
-  { email: 'arjun@india.com', password: 'arjun123' },
-  { email: 'priya@india.com', password: 'priya456' },
-  { email: 'rahul@india.com', password: 'rahul789' },
-];
+// const exampleUsers = [
+//   { email: 'arjun@india.com', password: 'arjun123' },
+//   { email: 'priya@india.com', password: 'priya456' },
+//   { email: 'rahul@india.com', password: 'rahul789' },
+// ];
 
 
 const Login = ({ setIsLoggedIn, setIsSignUp }) => {
@@ -23,21 +23,29 @@ const Login = ({ setIsLoggedIn, setIsSignUp }) => {
 
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError('');
-    // Check against example users
-    const user = exampleUsers.find(
-      (u) => u.email === email && u.password === password
-    );
-    if (user) {
-      // Store a fake JWT for testing
-      // localStorage.setItem('token', 'fake-jwt-token-for-' + user.email);
-      // window.location.href = '/';
-      setIsLoggedIn(true)
+  e.preventDefault();
+  setError('');
+
+  try {
+    const response = await fetch('http://localhost:8000/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (data.message === "Success") {
+      setIsLoggedIn(true);
     } else {
-      setError('Invalid credentials');
+      setError(data.message || 'Login failed');
     }
-  };
+  } catch (err) {
+    console.error(err);
+    setError('Something went wrong. Try again later.');
+  }
+};
+
 
   return (
     <div className="login-screen">
