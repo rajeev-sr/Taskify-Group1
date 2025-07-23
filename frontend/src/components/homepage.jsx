@@ -5,7 +5,7 @@ import Notes from './notes'
 import Profile from './profile'
 
 
-const HomePage = ({ setIsLoggedIn }) => {
+const HomePage = ({ setIsLoggedIn, userID }) => {
   const [currDisplay, setCurrDisplay] = useState(<Tasks />)
   const [tasksClass, setTasksClass] = useState("active")
   const [notesClass, setNotesClass] = useState("")
@@ -21,9 +21,10 @@ const HomePage = ({ setIsLoggedIn }) => {
     setIsLoggedIn(false)
   }
   const handleTasks = () => {
+    console.log(userID)
     resetAllClass()
     setTasksClass("active")
-    setCurrDisplay(<Tasks />)
+    setCurrDisplay(<Tasks userID={userID} />)
   }
   const handleNotes = () => {
     resetAllClass()

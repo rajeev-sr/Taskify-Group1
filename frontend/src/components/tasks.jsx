@@ -3,12 +3,27 @@ import React, {useState} from 'react';
 import './homepage.css'; 
 import NewTasksModal from './addNewTask'
 
-const Tasks = () => {
+const Tasks = ({ userID }) => {
 
     const [isCreatingTask, setIsCreatingTask] = useState(false)
 
     const handleNewTask = () => {
         setIsCreatingTask(true)
+        getTasks()
+    }
+
+    const getTasks = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/tasks', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: {"userID": userID},
+            });
+            const data = await response.json();
+            console.log(data)
+        } catch (err) {
+            console.error(err);
+        }
     }
 
     return (

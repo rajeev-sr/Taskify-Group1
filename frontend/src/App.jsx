@@ -10,10 +10,11 @@ import Login from './components/login'
 function App() {
   const [isSignUp, setIsSignUp] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userID, setUserID] = useState("")
 
   return (
     <>
-      {(isLoggedIn)?<HomePage setIsLoggedIn={setIsLoggedIn} />:(isSignUp)?<Signup setIsSignUp={setIsSignUp} />:<Login setIsLoggedIn={setIsLoggedIn} setIsSignUp={setIsSignUp} />}
+      {(isLoggedIn)?<HomePage setIsLoggedIn={setIsLoggedIn} userID={userID}/>:(isSignUp)?<Signup setIsSignUp={setIsSignUp} />:<Login setIsLoggedIn={setIsLoggedIn} setIsSignUp={setIsSignUp} setUserID={setUserID}/>}
     </>
   )
 }

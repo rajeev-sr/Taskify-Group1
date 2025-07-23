@@ -10,7 +10,7 @@ import './Login.css';
 // ];
 
 
-const Login = ({ setIsLoggedIn, setIsSignUp }) => {
+const Login = ({ setIsLoggedIn, setIsSignUp, setUserID }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [remember, setRemember] = useState(false);
@@ -36,6 +36,7 @@ const Login = ({ setIsLoggedIn, setIsSignUp }) => {
     const data = await response.json();
 
     if (data.message === "Success") {
+      setUserID(data.userID)
       setIsLoggedIn(true);
     } else {
       setError(data.message || 'Login failed');
