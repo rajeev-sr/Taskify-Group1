@@ -82,6 +82,7 @@ async def login(request: Request):
 @app.post("/tasks")
 async def tasks(request: Request):
     data = await request.json()
+    print("\n\n\n\n\n\n", data, "\n\n\n\n\n\n")
     userID = data["userID"]
     print(userID, "TASKS DEBUG")
     tasks = await getTasks(userID)

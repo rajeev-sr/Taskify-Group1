@@ -1,23 +1,27 @@
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './homepage.css'; 
 import NewTasksModal from './addNewTask'
 
 const Tasks = ({ userID }) => {
 
+    useEffect(() => {
+        getTasks()
+    }, [])
+
     const [isCreatingTask, setIsCreatingTask] = useState(false)
 
     const handleNewTask = () => {
         setIsCreatingTask(true)
-        getTasks()
     }
 
     const getTasks = async () => {
         try {
+            console.log("Sending userID:", userID);
             const response = await fetch('http://localhost:8000/tasks', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: {"userID": userID},
+                body: JSON.stringify({ userID }),
             });
             const data = await response.json();
             console.log(data)
@@ -38,6 +42,7 @@ const Tasks = ({ userID }) => {
                     <button className="btn">🔍 Filter</button>
                     <button className="btn">⇅ Sort</button>
                     <button className="btn" onClick={handleNewTask}>+ New Task</button>
+                    <button className="btn" onClick={getTasks}>⟳ Refresh Tasks</button>
                 </div>
                 <button className="btn new-task">+ New Task</button>
             </div>
