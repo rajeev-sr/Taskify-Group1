@@ -10,6 +10,16 @@ const Tasks = ({ userID }) => {
     }, [])
 
     const [isCreatingTask, setIsCreatingTask] = useState(false)
+    const [tasks, setTasks] = useState([])
+    const [tasksTODO, setTODO] = useState([])
+    const [tasksINPR, setINPR] = useState([])
+    const [tasksDONE, setDONE] = useState([])
+
+    useEffect(() => {
+        setTODO(tasks.filter(task => task.status === "To Do"))
+        setINPR(tasks.filter(task => task.status === "In Progress"))
+        setDONE(tasks.filter(task => task.status === "Done"))
+    }, [tasks])
 
     const handleNewTask = () => {
         setIsCreatingTask(true)
@@ -17,14 +27,15 @@ const Tasks = ({ userID }) => {
 
     const getTasks = async () => {
         try {
-            console.log("Sending userID:", userID);
             const response = await fetch('http://localhost:8000/tasks', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ userID }),
             });
             const data = await response.json();
+            setTasks(data)
             console.log(data)
+            console.log("todo: ", tasksTODO, "in progress: ", tasksINPR, "done", tasksDONE)
         } catch (err) {
             console.error(err);
         }
@@ -49,39 +60,33 @@ const Tasks = ({ userID }) => {
 
             <div className="columns">
                 <div className="column todo">
-                    <h3>To Do (2)</h3>
-                    <div className="task">
-                        <h4>Research competitors <span className="priority p1">P1</span></h4>
-                        <p>Analyze top 5 competitors in the market</p>
-                    </div>
-                    <div className="task">
-                        <h4>Design homepage mockup <span className="priority p2">P2</span></h4>
-                        <p>Create wireframes for the new homepage</p>
-                    </div>
+                    <h3>To Do ({tasksTODO.length})</h3>
+                    {tasksTODO.map((task, idx) => (
+                        <div className="task" key={idx}>
+                            <h4>{task.header} <span className={`priority ${task.priority?.toLowerCase()}`}>{task.priority}</span></h4>
+                            <p>{task.description}</p>
+                        </div>
+                    ))}
                 </div>
 
                 <div className="column progress">
-                    <h3>In Progress (2)</h3>
-                    <div className="task">
-                        <h4>Implement authentication <span className="priority p1">P1</span></h4>
-                        <p>Add login and registration functionality</p>
-                    </div>
-                    <div className="task">
-                        <h4>Write API documentation <span className="priority p3">P3</span></h4>
-                        <p>Document all endpoints with examples</p>
-                    </div>
+                    <h3>In Progress ({tasksINPR.length})</h3>
+                    {tasksINPR.map((task, idx) => (
+                        <div className="task" key={idx}>
+                            <h4>{task.header} <span className={`priority ${task.priority?.toLowerCase()}`}>{task.priority}</span></h4>
+                            <p>{task.description}</p>
+                        </div>
+                    ))}
                 </div>
 
                 <div className="column done">
-                    <h3>Done (2)</h3>
-                    <div className="task">
-                        <h4>Fix navigation bug <span className="priority p2">P2</span></h4>
-                        <p>Address the issue with dropdown menu</p>
-                    </div>
-                    <div className="task">
-                        <h4>Deploy to staging <span className="priority p1">P1</span></h4>
-                        <p>Push latest changes to staging environment</p>
-                    </div>
+                    <h3>Done ({tasksDONE.length})</h3>
+                    {tasksDONE.map((task, idx) => (
+                        <div className="task" key={idx}>
+                            <h4>{task.header} <span className={`priority ${task.priority?.toLowerCase()}`}>{task.priority}</span></h4>
+                            <p>{task.description}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
