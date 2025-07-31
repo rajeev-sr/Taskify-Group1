@@ -47,42 +47,44 @@ const Signup = ({ setIsSignUp }) => {
   };
 
   return (
-    <div className="signup-container">
-      <h1 className="title">Taskify</h1>
-      <h2>Create a new account</h2>
-      <p>
-        Or <a href="#" onClick={handleLogin}>sign in to your existing account</a>
-      </p>
+    <div className="signup-screen">
+      <div className="signup-container">
+        <h1 className="signup-title">Taskify</h1>
+        <h2 className="signup-subtitle">Create a new account</h2>
+        <div className="signup-register">
+          Or <a href='#' onClick={handleLogin}>sign into an existing account</a>
+        </div>
 
-      {/* <input
-        type="text"
-        placeholder="Username"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-      /> */}
+        {/* <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        /> */}
 
-      <input
-        type="email"
-        placeholder="Email address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <input
+          type="email"
+          placeholder="Email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <input
-        type="password"
-        placeholder="Confirm Password"
-        value={confirmPassword}
-        onChange={(e) => setConfirmPassword(e.target.value)}
-      />
-      <div>{message}</div>
-      <button onClick={handleSignup}>Register</button>
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          value={confirmPassword}
+          onChange={(e) => setConfirmPassword(e.target.value)}
+        />
+        <div >{message}</div>
+        <button onClick={handleSignup}>Register</button>
+      </div>
     </div>
   );
 };
