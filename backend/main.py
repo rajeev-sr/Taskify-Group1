@@ -75,6 +75,18 @@ async def createTask(data):
     result = await tasksDB.insert_one(newTask)
     print(result)
 
+async def createUser(data):
+    newUser = {
+        "email": data["email"],
+        "password": data["password"]
+    }
+    existingUser = await usersDB.find_one({"email": newUser["email"]})
+    if existingUser:
+        return False
+    result = await usersDB.insert_one(newUser)
+    print("USER ADDED SUCCESSFULLY!!", result)
+    return True
+
 @app.post("/login")
 async def login(request: Request):
     data = await request.json()
@@ -95,6 +107,15 @@ async def tasks(request: Request):
 @app.post("/new-task")
 async def newTask(request: Request):
     data = await request.json()
-    print(data)
     await createTask(data)
     return {"message": "success!"}
+
+@app.post("/register")
+async def register(request: Request):
+    data = await request.json()
+    print(data)
+    isRegister = await createUser(data)
+    if isRegister:
+        return {"message": "success!"}
+    else:
+        return {"message": "Email already exists."}
