@@ -44,7 +44,7 @@ const Tasks = ({ userID }) => {
     return (
         <>
         <div>
-            {(isCreatingTask)?<NewTasksModal setIsCreatingTask={setIsCreatingTask} />:<></>}
+            {(isCreatingTask)?<NewTasksModal setIsCreatingTask={setIsCreatingTask} userID={userID} />:<></>}
         </div>
         <div className="container">
             <h2>My Tasks</h2>
@@ -55,7 +55,6 @@ const Tasks = ({ userID }) => {
                     <button className="btn" onClick={handleNewTask}>+ New Task</button>
                     <button className="btn" onClick={getTasks}>⟳ Refresh Tasks</button>
                 </div>
-                <button className="btn new-task">+ New Task</button>
             </div>
 
             <div className="columns">
@@ -63,7 +62,7 @@ const Tasks = ({ userID }) => {
                     <h3>To Do ({tasksTODO.length})</h3>
                     {tasksTODO.map((task, idx) => (
                         <div className="task" key={idx}>
-                            <h4>{task.header} <span className={`priority ${task.priority?.toLowerCase()}`}>{task.priority}</span></h4>
+                            <h4>{task.header} <span className={`priority ${task.priority}`}>{task.priority}</span></h4>
                             <p>{task.description}</p>
                         </div>
                     ))}
@@ -73,7 +72,7 @@ const Tasks = ({ userID }) => {
                     <h3>In Progress ({tasksINPR.length})</h3>
                     {tasksINPR.map((task, idx) => (
                         <div className="task" key={idx}>
-                            <h4>{task.header} <span className={`priority ${task.priority?.toLowerCase()}`}>{task.priority}</span></h4>
+                            <h4>{task.header} <span className={`priority ${task.priority}`}>{task.priority}</span></h4>
                             <p>{task.description}</p>
                         </div>
                     ))}
@@ -83,7 +82,7 @@ const Tasks = ({ userID }) => {
                     <h3>Done ({tasksDONE.length})</h3>
                     {tasksDONE.map((task, idx) => (
                         <div className="task" key={idx}>
-                            <h4>{task.header} <span className={`priority ${task.priority?.toLowerCase()}`}>{task.priority}</span></h4>
+                            <h4>{task.header} <span className={`priority ${task.priority}`}>{task.priority}</span></h4>
                             <p>{task.description}</p>
                         </div>
                     ))}

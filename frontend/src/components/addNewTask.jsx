@@ -1,13 +1,14 @@
 import React, { useState } from "react"
 import "./addNewTask.css"
 
-function NewTaskModal({ setIsCreatingTask }) {
+function NewTaskModal({ setIsCreatingTask, userID }) {
     const [isOpen, setIsOpen] = useState(false)
     const [newTask, setNewTask] = useState({
-        title: "",
-        description: "",
-        priority: "2 (Medium)",
-        status: "To Do"
+      userID,
+      header: "",
+      description: "",
+      priority: "p2",
+      status: "To Do"
     });
 
     const handleClose = () => {
@@ -15,11 +16,21 @@ function NewTaskModal({ setIsCreatingTask }) {
     }
 
     const handleChange = (e) => {
-        setNewTask({ ...newTask, [e.target.name]: [e.target.value]})
+        setNewTask((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log("Creating new task : ", newTask)
+        try {
+            const response = await fetch('http://localhost:8000/new-task', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newTask),
+            });
+            const data = await response.json()
+        } catch (err) {
+            console.error(err);
+        }
         setIsCreatingTask(false)
     }
 
@@ -34,7 +45,7 @@ function NewTaskModal({ setIsCreatingTask }) {
           <div>
             <label className="block text-sm font-medium">Title</label>
             <input
-              name="title"
+              name="header"
               value={newTask.title}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
@@ -59,9 +70,9 @@ function NewTaskModal({ setIsCreatingTask }) {
               onChange={handleChange}
               className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
             >
-              <option>1 (High)</option>
-              <option>2 (Medium)</option>
-              <option>3 (Low)</option>
+              <option>p1</option>
+              <option>p2</option>
+              <option>p3</option>
             </select>
           </div>
 

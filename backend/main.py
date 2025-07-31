@@ -64,10 +64,16 @@ async def getTasks(userID: str):
         tasks.append(task)
     return tasks
 
-
-@app.get("/")
-def read_root():
-    return {"message": "MongoDB + FastAPI working!"}
+async def createTask(data):
+    newTask = {
+        "userID": data["userID"],
+        "header": data["header"],
+        "description": data["description"],
+        "status": data["status"],
+        "priority": data["priority"]
+    }
+    result = await tasksDB.insert_one(newTask)
+    print(result)
 
 @app.post("/login")
 async def login(request: Request):
@@ -82,9 +88,13 @@ async def login(request: Request):
 @app.post("/tasks")
 async def tasks(request: Request):
     data = await request.json()
-    print("\n\n\n\n\n\n", data, "\n\n\n\n\n\n")
     userID = data["userID"]
-    print(userID, "TASKS DEBUG")
     tasks = await getTasks(userID)
-    # print(tasks)
     return JSONResponse(content=tasks)
+
+@app.post("/new-task")
+async def newTask(request: Request):
+    data = await request.json()
+    print(data)
+    await createTask(data)
+    return {"message": "success!"}
