@@ -64,10 +64,28 @@ async def getTasks(userID: str):
         tasks.append(task)
     return tasks
 
+async def createTask(data):
+    newTask = {
+        "userID": data["userID"],
+        "header": data["header"],
+        "description": data["description"],
+        "status": data["status"],
+        "priority": data["priority"]
+    }
+    result = await tasksDB.insert_one(newTask)
+    print(result)
 
-@app.get("/")
-def read_root():
-    return {"message": "MongoDB + FastAPI working!"}
+async def createUser(data):
+    newUser = {
+        "email": data["email"],
+        "password": data["password"]
+    }
+    existingUser = await usersDB.find_one({"email": newUser["email"]})
+    if existingUser:
+        return False
+    result = await usersDB.insert_one(newUser)
+    print("USER ADDED SUCCESSFULLY!!", result)
+    return True
 
 @app.post("/login")
 async def login(request: Request):
@@ -83,7 +101,21 @@ async def login(request: Request):
 async def tasks(request: Request):
     data = await request.json()
     userID = data["userID"]
-    print(userID, "TASKS DEBUG")
     tasks = await getTasks(userID)
-    # print(tasks)
     return JSONResponse(content=tasks)
+
+@app.post("/new-task")
+async def newTask(request: Request):
+    data = await request.json()
+    await createTask(data)
+    return {"message": "success!"}
+
+@app.post("/register")
+async def register(request: Request):
+    data = await request.json()
+    print(data)
+    isRegister = await createUser(data)
+    if isRegister:
+        return {"message": "success!"}
+    else:
+        return {"message": "Email already exists."}

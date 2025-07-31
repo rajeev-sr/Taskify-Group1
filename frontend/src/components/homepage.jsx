@@ -6,7 +6,7 @@ import Profile from './profile'
 
 
 const HomePage = ({ setIsLoggedIn, userID }) => {
-  const [currDisplay, setCurrDisplay] = useState(<Tasks />)
+  const [currDisplay, setCurrDisplay] = useState(<Tasks userID={userID} />)
   const [tasksClass, setTasksClass] = useState("active")
   const [notesClass, setNotesClass] = useState("")
   const [profileClass, setProfileClass] = useState("")
