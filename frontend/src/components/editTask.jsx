@@ -1,27 +1,22 @@
 import React, { useState } from "react"
-import "./addNewTask.css"
+import "./editTask.css"
 
-function NewTaskModal({ setIsCreatingTask, userID }) {
-    const [newTask, setNewTask] = useState({
-      userID,
-      header: "",
-      description: "",
-      priority: "p2",
-      status: "To Do"
-    });
-
-    const handleClose = () => {
-        setIsCreatingTask(false)
-    }
+function EditTaskModal({ setIsEditingTask, task }) {
+    
+    const [newTask, setNewTask] = useState(task)
 
     const handleChange = (e) => {
         setNewTask((prev) => ({ ...prev, [e.target.name]: e.target.value }))
     }
 
+    const handleClose = () => {
+        setIsEditingTask(false)
+    }
+
     const handleSubmit = async () => {
         console.log("Creating new task : ", newTask)
         try {
-            const response = await fetch('http://localhost:8000/new-task', {
+            const response = await fetch('http://localhost:8000/edit-task', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newTask),
@@ -30,14 +25,14 @@ function NewTaskModal({ setIsCreatingTask, userID }) {
         } catch (err) {
             console.error(err);
         }
-        setIsCreatingTask(false)
+        setIsEditingTask(false)
     }
 
     return (
     <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
       <div className="bg-white p-6 rounded-2xl shadow-xl w-[90%] max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">New Task</h2>
+          <h2 className="text-xl font-semibold">Edit Task</h2>
         </div>
 
         <div className="space-y-3">
@@ -45,7 +40,7 @@ function NewTaskModal({ setIsCreatingTask, userID }) {
             <label className="block text-sm font-medium">Title</label>
             <input
               name="header"
-              value={newTask.title}
+              value={newTask.header}
               onChange={handleChange}
               className="w-full border border-gray-300 rounded px-3 py-2 mt-1"
             />
@@ -101,7 +96,7 @@ function NewTaskModal({ setIsCreatingTask, userID }) {
             onClick={handleSubmit}
             className="ml-3 px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
           >
-            Create Task
+            Edit Task
           </button>
         </div>
       </div>
@@ -110,4 +105,4 @@ function NewTaskModal({ setIsCreatingTask, userID }) {
 }
 
 
-export default NewTaskModal
+export default EditTaskModal
