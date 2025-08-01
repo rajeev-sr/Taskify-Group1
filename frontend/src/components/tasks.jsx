@@ -2,6 +2,7 @@
 import React, {useState, useEffect} from 'react';
 import './homepage.css'; 
 import NewTasksModal from './addNewTask'
+import EditTasksModal from './editTask'
 
 const Tasks = ({ userID }) => {
 
@@ -10,10 +11,12 @@ const Tasks = ({ userID }) => {
     }, [])
 
     const [isCreatingTask, setIsCreatingTask] = useState(false)
+    const [isEditingTask, setIsEditingTask] = useState(false)
     const [tasks, setTasks] = useState([])
     const [tasksTODO, setTODO] = useState([])
     const [tasksINPR, setINPR] = useState([])
     const [tasksDONE, setDONE] = useState([])
+    const [taskEdit, setTaskEdit] = useState([])
 
     useEffect(() => {
         setTODO(tasks.filter(task => task.status === "To Do"))
@@ -23,6 +26,16 @@ const Tasks = ({ userID }) => {
 
     const handleNewTask = () => {
         setIsCreatingTask(true)
+    }
+
+    const getPriority = (priorityDB) => {
+        return priorityDB === "p1"
+        ? "HIGH"
+        : priorityDB === "p2"
+        ? "MEDIUM"
+        : priorityDB === "p3"
+        ? "LOW"
+        : "UNDEFINED"
     }
 
     const getTasks = async () => {
@@ -41,17 +54,24 @@ const Tasks = ({ userID }) => {
         }
     }
 
+    const handleEdit = (task) => {
+        setTaskEdit(task)
+        setIsEditingTask(true)
+    }
+
     return (
         <>
         <div>
             {(isCreatingTask)?<NewTasksModal setIsCreatingTask={setIsCreatingTask} userID={userID} />:<></>}
+        </div>
+        <div>
+            {(isEditingTask)?<EditTasksModal setIsEditingTask={setIsEditingTask} task={taskEdit} />:<></>}
         </div>
         <div className="container">
             <h2>My Tasks</h2>
             <div className="controls">
                 <div>
                     <button className="btn">🔍 Filter</button>
-                    <button className="btn">⇅ Sort</button>
                     <button className="btn" onClick={handleNewTask}>+ New Task</button>
                     <button className="btn" onClick={getTasks}>⟳ Refresh Tasks</button>
                 </div>
@@ -62,8 +82,9 @@ const Tasks = ({ userID }) => {
                     <h3>To Do ({tasksTODO.length})</h3>
                     {tasksTODO.map((task, idx) => (
                         <div className="task" key={idx}>
-                            <h4>{task.header} <span className={`priority ${task.priority}`}>{task.priority}</span></h4>
+                            <h4>{task.header} <span className={`priority ${task.priority}`}>{getPriority(task.priority)}</span></h4>
                             <p>{task.description}</p>
+                            <button className="mt-2 inline-block bg-blue-500 text-white text-sm px-4 py-1 rounded hover:bg-blue-600 transition" onClick={() => handleEdit(task)}>Edit</button>
                         </div>
                     ))}
                 </div>
@@ -72,8 +93,9 @@ const Tasks = ({ userID }) => {
                     <h3>In Progress ({tasksINPR.length})</h3>
                     {tasksINPR.map((task, idx) => (
                         <div className="task" key={idx}>
-                            <h4>{task.header} <span className={`priority ${task.priority}`}>{task.priority}</span></h4>
+                            <h4>{task.header} <span className={`priority ${task.priority}`}>{getPriority(task.priority)}</span></h4>
                             <p>{task.description}</p>
+                            <button className="mt-2 inline-block bg-blue-500 text-white text-sm px-4 py-1 rounded hover:bg-blue-600 transition" onClick={() => handleEdit(task)}>Edit</button>
                         </div>
                     ))}
                 </div>
@@ -82,8 +104,9 @@ const Tasks = ({ userID }) => {
                     <h3>Done ({tasksDONE.length})</h3>
                     {tasksDONE.map((task, idx) => (
                         <div className="task" key={idx}>
-                            <h4>{task.header} <span className={`priority ${task.priority}`}>{task.priority}</span></h4>
+                            <h4>{task.header} <span className={`priority ${task.priority}`}>{getPriority(task.priority)}</span></h4>
                             <p>{task.description}</p>
+                            <button className="mt-2 inline-block bg-blue-500 text-white text-sm px-4 py-1 rounded hover:bg-blue-600 transition" onClick={() => handleEdit(task)}>Edit</button>
                         </div>
                     ))}
                 </div>

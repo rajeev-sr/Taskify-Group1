@@ -87,6 +87,12 @@ async def createUser(data):
     print("USER ADDED SUCCESSFULLY!!", result)
     return True
 
+async def taskEditDB(task):
+    task_id = task.get("_id")
+    await tasksDB.delete_one({"_id": ObjectId(task_id)})
+    task.pop("_id", None)
+    await tasksDB.insert_one(task)
+
 @app.post("/login")
 async def login(request: Request):
     data = await request.json()
@@ -108,7 +114,7 @@ async def tasks(request: Request):
 async def newTask(request: Request):
     data = await request.json()
     await createTask(data)
-    return {"message": "success!"}
+    return {"message": "New Task Added Successfully!"}
 
 @app.post("/register")
 async def register(request: Request):
@@ -116,6 +122,12 @@ async def register(request: Request):
     print(data)
     isRegister = await createUser(data)
     if isRegister:
-        return {"message": "success!"}
+        return {"message": "User Registered Successfully!"}
     else:
         return {"message": "Email already exists."}
+@app.post("/edit-task")
+async def editTask(request: Request):
+    data = await request.json()
+    print(data)
+    await taskEditDB(data)
+    return {"message": "Task Edited Successfully!"}
